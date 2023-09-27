@@ -8,12 +8,20 @@ const routes = [
     { path: '/', component: Home },
     { path: '/login', component: Login },
     { path: '/registation', component: Registation },
-    { path: '/dashboard', component: Dashboard },
+    { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
 ]
 
 const router = createRouter({
     history: createWebHistory(),
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth) {
+        next('/login')
+    } else {
+        next()
+    }
 })
 
 export default router
