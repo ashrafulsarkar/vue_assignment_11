@@ -1,15 +1,15 @@
 <script setup>
 import { ref } from 'vue'
-// import { useRegistrationStore } from '../store/store';
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const name = ref('');
-const username = ref('');
 const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 const errorMassage = ref('');
 
-// const registrationStore = useRegistrationStore();
 
 const submitForm = () => {
     if ( password.value !== confirmPassword.value) {
@@ -19,7 +19,6 @@ const submitForm = () => {
 
     const userData = {
         name: name.value,
-        username: username.value,
         email: email.value,
         password: password.value,
     };
@@ -27,11 +26,12 @@ const submitForm = () => {
     localStorage.setItem('userData', JSON.stringify(userData));
 
     name.value = ''
-    username.value = ''
     email.value = ''
     password.value = ''
     confirmPassword.value = ''
     errorMassage.value = ''
+
+    router.push({ path:"/login" })
 };
 </script>
 
@@ -41,10 +41,6 @@ const submitForm = () => {
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" v-model="name" required />
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" v-model="username" required />
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -61,6 +57,7 @@ const submitForm = () => {
             <div class="mb-3">
                 <p>{{ errorMassage }}</p>
             </div>
+            <p>Have an account? <RouterLink to="/login" class="nav-link">Login</RouterLink></p>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Register</button>
             </div>
@@ -80,5 +77,9 @@ const submitForm = () => {
 
 .registation_page button {
     width: 100%;
+}
+p a{
+    display: inline;
+    text-decoration: underline;
 }
 </style>

@@ -7,4 +7,19 @@ import router from './router/router'
 
 const pinia = createPinia()
 
-createApp(App).use(router).use(pinia).mount('#app')
+// pinia.use(({ store }) => {
+//     store.$router = markRaw(router)
+// });
+
+createApp(App).use(pinia).use(router).mount('#app')
+
+
+
+
+// const app = createApp(App);
+// // const pinia = createPinia();
+
+// pinia.use(({ store }) => {
+//   store.$router = markRaw(router)
+// });
+// app.use(router).mount('#app')

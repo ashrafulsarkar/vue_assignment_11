@@ -1,15 +1,17 @@
 <script setup>
 import { ref } from 'vue'
+import { authStore } from '../store/store';
 
+const auth = authStore();
 
 </script>
 
 <template>
   <ul>
     <li><RouterLink to="/" class="nav-link text-white">Home</RouterLink></li>
-    <li><RouterLink to="/dashboard" class="nav-link text-white">Dashboard</RouterLink></li>
-    <li><RouterLink to="/login" class="nav-link text-white">Login</RouterLink></li>
-    <li><RouterLink to="/registation" class="nav-link text-white">Registation</RouterLink></li>
+    <li v-if="auth.isAuthenticated"><RouterLink to="/dashboard" class="nav-link text-white">Dashboard</RouterLink></li>
+    <li v-if="!auth.isAuthenticated"><RouterLink to="/login" class="nav-link text-white">Login</RouterLink></li>
+    <li v-if="auth.isAuthenticated"><span @click="auth.logout" class="nav-link text-white">LogOut</span></li>
   </ul>
 </template>
 
@@ -20,5 +22,9 @@ ul{
 ul li{
     list-style: none;
     padding: 8px 0;
+}
+ul li span{
+  display: block;
+  cursor: pointer;
 }
 </style>
